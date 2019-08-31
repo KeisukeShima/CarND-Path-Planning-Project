@@ -31,29 +31,39 @@ bool canChangeLanes(const int target_lane,
     // If detected vehicle is in the target lane
     if (d < (2 + 4 * target_lane + 2) && d > (2 + 4 * target_lane - 2))
     {
+      const double dist_front = 10.0;
+      const double dist_back = 20.0;
       // If Ego car is behind detected car
       if ((car_s + 15 > max_s && s < 10) && (fmod(car_s + s, max_s) < 10))
       {
+        std::cout << "false #1" << std::endl;
         return false;
       }
       // If Detected car is behind ego car
-      else if ((s + 10 > max_s && car_s < 22 && fmod(car_s + s, max_s) < 22))
+      else if ((s + 10 > max_s && car_s < 18 && fmod(car_s + s, max_s) < 18))
       {
+        std::cout << "false #2" << std::endl;
         return false;
       }
       // If Ego car is in front of detetected car
-      else if ((car_s > s) && (car_s - s < 22))
+      else if ((car_s > s) || (car_s - s < dist_back))
       {
+        std::cout << "false #3" << std::endl;
         return false;
       }
       // If detected car is in front of ego car
-      else if ((s > car_s) && (s - car_s < 10))
+      else if ((s > car_s) || (s - car_s < dist_front))
       {
+        std::cout << "false #4" << std::endl;
         return false;
       }
+      if (fabs(car_s - s) < 30.0 || fmod(car_s + s, max_s) < 15.0) {
+         return false;
+      }
+      
+    std::cout << "true: " << s << "," << car_s << std::endl;
     }
   }
-
   return true;
 }
 

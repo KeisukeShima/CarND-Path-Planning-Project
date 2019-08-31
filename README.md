@@ -107,9 +107,19 @@ Please (do your best to) stick to [Google's C++ style guide](https://google.gith
 
 ## Project Instructions and Rubric
 
-Note: regardless of the changes you make, your project must be buildable using
-cmake and make!
+### Build step
 
+1. Clone this repo.
+2. Make a build directory: `mkdir build && cd build`
+3. Compile: `cmake .. && make`
+4. Run it: `./path_planning`.
+5. Open simulator and run Path-Planning scenario.
+
+### Code Instructions
+
+* Model documentation
+
+I modified `src/main.cpp`. Please see main function and canChangeLanes function. When a message received, I checked nearest car in the current lane. If the car is in front of ego vehicle, ego vehicle will try to change the lane using canCangeLanes(). Finally, I create trajectory. I added `src/spline.h` to create spline curve.
 
 ## Call for IDE Profiles Pull Requests
 

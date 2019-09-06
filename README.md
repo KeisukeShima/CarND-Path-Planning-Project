@@ -1,6 +1,17 @@
 # CarND-Path-Planning-Project
 Self-Driving Car Engineer Nanodegree Program
    
+
+### Project Writeup
+
+* Model documentation
+
+I modified `src/main.cpp`. Please see main function and canChangeLanes function. When a message received, I checked nearest car in the current lane. If the car is in front of ego vehicle, ego vehicle will try to change the lane using canCangeLanes(). Finally, I create trajectory. I added `src/spline.h` to create spline curve.
+
+* Code instruction
+main()の中でonMessage()を呼んでいます。これはシミュレーターからのメッセージ受診時に呼び出されるコールバック関数なので、ここで車両の動きを計算してメッセージを送信します。178行目からの`for (int i = 0; i < sensor_fusion.size(); ++i)`ループですべての周辺車両の挙動を計算しています。発見された車が自車に近ければ、自車の挙動を変えます。しきい値は25mです（197行目）。周辺車両が遅ければ、レーンチェンジをします（229行目）。canLaneChange()では、周辺車両の相対速度と位置によってレーンチェンジをしていいかどうかを判断します。こうして生成した情報をもとに、スプライン関数を使って軌道を生成します（258行目から）。
+OnMessage () is called in main (). Since this is a callback function that is called when a message is received from the simulator, the movement of the vehicle is calculated here and a message is sent. The `for (int i = 0; i <sensor_fusion.size (); ++ i)` loop from line 178 calculates the behavior of all surrounding vehicles. If the discovered car is close to your car, change the behavior of your car. The threshold is 25m (line 197). If the surrounding vehicle is slow, change the lane (line 229). In canLaneChange (), it is determined whether or not to change lanes based on the relative speed and position of surrounding vehicles. Based on the information generated in this way, a trajectory is generated using a spline function (from line 258).
+
 ### Simulator.
 You can download the Term3 Simulator which contains the Path Planning Project from the [releases tab (https://github.com/udacity/self-driving-car-sim/releases/tag/T3_v1.2).  
 
